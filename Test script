@@ -1,0 +1,45 @@
+# XVvanNX-GUI
+
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local PART_NAME = "spin1" -- semua part namanya ini
+local RADIUS = 6
+local Y_OFFSET = 0
+local ROTATION_SPEED = 2
+local SELF_SPIN_SPEED = 4
+
+local angle = 0
+
+RunService.RenderStepped:Connect(function(dt)
+	local char = player.Character
+	local hrp = char and char:FindFirstChild("HumanoidRootPart")
+	if not hrp then return end
+	
+	-- Ambil semua part yang namanya "spin1"
+	local parts = {}
+	for _, obj in ipairs(workspace:GetChildren()) do
+		if obj.Name == PART_NAME and obj:IsA("BasePart") then
+			table.insert(parts, obj)
+		end
+	end
+	
+	local partCount = #parts
+	if partCount == 0 then return end
+	
+	angle += ROTATION_SPEED * dt
+	
+	for i, part in ipairs(parts) do
+		-- Bagi 360 derajat sesuai jumlah part yang ketemu
+		local offsetAngle = math.rad((360 / partCount) * i) + angle
+		
+		local x = math.cos(offsetAngle) * RADIUS
+		local z = math.sin(offsetAngle) * RADIUS
+		
+		local posOffset = CFrame.new(x, Y_OFFSET, z)
+		local selfSpin = CFrame.Angles(0, angle * SELF_SPIN_SPEED, 0)
+		
+		part.CFrame = hrp.CFrame * posOffset * selfSpin
+	end
+end)
