@@ -1,0 +1,147 @@
+-- XVvanNX GUI - Simple Version
+-- Keybind: CTRL+X to toggle
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "XVvanNX GUI"
+ScreenGui.Parent = game.CoreGui
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0,350,0,250)
+MainFrame.Position = UDim2.new(0.5,-175,0.5,-125)
+MainFrame.BackgroundColor3 = Color3.fromRGB(30,30,40)
+MainFrame.Parent = ScreenGui
+
+local TitleBar = Instance.new("Frame")
+TitleBar.Size = UDim2.new(1,0,0,35)
+TitleBar.BackgroundColor3 = Color3.fromRGB(235,195,35)
+TitleBar.Parent = MainFrame
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1,0,1,0)
+Title.Text = "XVvanNX GUI"
+Title.TextColor3 = Color3.new(0,0,0)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 18
+Title.Parent = TitleBar
+
+local CloseBtn = Instance.new("TextButton")
+CloseBtn.Size=UDim2.new(0,30,0,30)
+CloseBtn.Position=UDim2.new(1,-35,0,2)
+CloseBtn.BackgroundColor3=Color3.fromRGB(195,48,48)
+CloseBtn.Text="✕"
+CloseBtn.TextColor3=Color3.new(1,1,1)
+CloseBtn.Font=Enum.Font.GothamBold
+CloseBtn.TextSize=14
+CloseBtn.Parent=TitleBar
+CloseBtn.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
+
+local Content = Instance.new("Frame")
+Content.Size=UDim2.new(1,0,1,-35)
+Content.Position=UDim2.new(0,0,0,35)
+Content.BackgroundColor3=Color3.fromRGB(20,20,30)
+Content.Parent=MainFrame
+
+local Layout = Instance.new("UIListLayout")
+Layout.Parent = Content
+Layout.Padding = UDim.new(0,5)
+
+-- Keybind toggle
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.X and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+        MainFrame.Visible = not MainFrame.Visible
+    end
+end)
+
+-- Simple mod buttons (5 features only)
+local features = {
+    {name = "Noclip", func = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        if character then
+            for _, part in pairs(character:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.CanCollide = false
+                end
+            end
+        end
+    end},
+
+    {name = "Fly", func = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        if character then
+            character.HumanoidRootPart.Anchored = false
+            character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+        end
+    end},
+
+    {name = "Speed Hack", func = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        if character and character.Humanoid then
+            character.Humanoid.WalkSpeed = 100
+        end
+    end},
+
+    {name = "ESP", func = function()
+        local players = game:GetService("Players")
+        for _, player in pairs(players:GetPlayers()) do
+            if player ~= players.LocalPlayer then
+                local character = player.Character
+                if character then
+                    local highlight = Instance.new("Highlight")
+                    highlight.Name = "ESP_" .. player.Name
+                    highlight.FillColor = Color3.fromRGB(255,0,0)
+                    highlight.Parent = character
+                end
+            end
+        end
+    end},
+
+    {name = "Teleport GUI", func = function()
+        local teleportGui = Instance.new("ScreenGui")
+        teleportGui.Parent = game.CoreGui
+
+        local frame = Instance.new("Frame")
+        frame.Size = UDim2.new(0,200,0,200)
+        frame.Position = UDim2.new(0.5,-100,0.5,-100)
+        frame.BackgroundColor3 = Color3.fromRGB(235,195,35)
+        frame.Parent = teleportGui
+
+        local scroll = Instance.new("ScrollingFrame")
+        scroll.Size = UDim2.new(1,0,1,0)
+        scroll.Parent = frame
+
+        local players = game:GetService("Players")
+        for _, targetPlayer in pairs(players:GetPlayers()) do
+            if targetPlayer ~= players.LocalPlayer then
+                local btn = Instance.new("TextButton")
+                btn.Size = UDim2.new(1,0,0,30)
+                btn.Text = targetPlayer.Name
+                btn.Parent = scroll
+
+                btn.MouseButton1Click:Connect(function()
+                    local myChar = players.LocalPlayer.Character
+                    local targetChar = targetPlayer.Character
+                    if myChar and targetChar and targetChar.HumanoidRootPart then
+                        myChar.HumanoidRootPart.CFrame = targetChar.HumanoidRootPart.CFrame
+                    end
+                end)
+            end
+        end
+    end}
+}
+
+for _, feature in ipairs(features) do
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(1,-10,0,35)
+    btn.Text = feature.name
+    btn.BackgroundColor3 = Color3.fromRGB(235,195,35)
+    btn.TextColor3 = Color3.new(1,1,1)
+    btn.Font = Enum.Font.Gotham
+    btn.TextSize = 14
+    btn.Parent = Content
+
+    btn.MouseButton1Click:Connect(feature.func)
+end
+`
