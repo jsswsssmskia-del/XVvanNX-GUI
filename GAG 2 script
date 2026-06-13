@@ -1,0 +1,646 @@
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- HAPUS GUI LAMA
+if PlayerGui:FindFirstChild("XVvanNX_TP_V32") then
+	PlayerGui.XVvanNX_TP_V32:Destroy()
+end
+if PlayerGui:FindFirstChild("XVvanNX_LANG_SELECT") then
+	PlayerGui.XVvanNX_LANG_SELECT:Destroy()
+end
+
+-- LANGUAGE SYSTEM
+local LANG = "ID"
+local TEXT = {
+	ID = {
+		TITLE = "GAG2 TP STEAL",
+		SUBTITLE = "By XVvanNX",
+		STOLEN = "Dicuri",
+		SKIP = "Skip",
+		STATUS_OFF = "Status: OFF",
+		STATUS_ON = "Status: MENCARI...",
+		STATUS_NIGHT = "Status: NUNGGU MALAM BRO",
+		STATUS_DAY = "Status: SIANG - GABISA STEAL",
+		STATUS_STEAL = "Status: STEAL",
+		STATUS_TP = "Status: TP",
+		STATUS_BACK = "Status: BALIK KE GARDEN!",
+		STATUS_OWNER = "Status: OWNER DI GARDEN - SKIP",
+		STATUS_HIT = "Status: PUKUL MALING!",
+		AUTO_ON = "AUTO STEAL: ON",
+		AUTO_OFF = "AUTO STEAL: OFF",
+		HIT_ON = "AUTO HIT: ON",
+		HIT_OFF = "AUTO HIT: OFF",
+		SET_GARDEN = "SET POSISI GARDEN",
+		GARDEN_SET = "GARDEN DI SET!",
+		USER = "User",
+		DISPLAY = "Display",
+		TIME = "Waktu",
+		SELECT_LANG = "PILIH BAHASA",
+		INDO_BTN = "BAHASA INDONESIA",
+		ENGLISH_BTN = "ENGLISH"
+	},
+	EN = {
+		TITLE = "GAG2 TP STEAL",
+		SUBTITLE = "By XVvanNX",
+		STOLEN = "Stolen",
+		SKIP = "Skip",
+		STATUS_OFF = "Status: OFF",
+		STATUS_ON = "Status: HUNTING...",
+		STATUS_NIGHT = "Status: WAIT FOR NIGHT BRO",
+		STATUS_DAY = "Status: DAY - CAN'T STEAL",
+		STATUS_STEAL = "Status: STEAL",
+		STATUS_TP = "Status: TP",
+		STATUS_BACK = "Status: BACK TO GARDEN!",
+		STATUS_OWNER = "Status: OWNER IN GARDEN - SKIP",
+		STATUS_HIT = "Status: HITTING THIEF!",
+		AUTO_ON = "AUTO STEAL: ON",
+		AUTO_OFF = "AUTO STEAL: OFF",
+		HIT_ON = "AUTO HIT: ON",
+		HIT_OFF = "AUTO HIT: OFF",
+		SET_GARDEN = "SET GARDEN POSITION",
+		GARDEN_SET = "GARDEN SET!",
+		USER = "User",
+		DISPLAY = "Display",
+		TIME = "Time",
+		SELECT_LANG = "SELECT LANGUAGE",
+		INDO_BTN = "BAHASA INDONESIA",
+		ENGLISH_BTN = "ENGLISH"
+	}
+}
+
+local function T(key)
+	return TEXT[LANG][key] or key
+end
+
+-- LANGUAGE SELECTION SCREEN
+local LangGui = Instance.new("ScreenGui")
+LangGui.Name = "XVvanNX_LANG_SELECT"
+LangGui.ResetOnSpawn = false
+LangGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+LangGui.Parent = PlayerGui
+
+local LangFrame = Instance.new("Frame")
+LangFrame.Size = UDim2.new(0, 300, 0, 200)
+LangFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+LangFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+LangFrame.BorderSizePixel = 0
+LangFrame.ZIndex = 100
+LangFrame.Parent = LangGui
+
+local LangCorner = Instance.new("UICorner")
+LangCorner.CornerRadius = UDim.new(0, 12)
+LangCorner.Parent = LangFrame
+
+local LangTitle = Instance.new("TextLabel")
+LangTitle.Size = UDim2.new(1, 0, 0, 40)
+LangTitle.Position = UDim2.new(0, 0, 0, 20)
+LangTitle.BackgroundTransparency = 1
+LangTitle.Text = T("SELECT_LANG")
+LangTitle.TextColor3 = Color3.fromRGB(50, 255, 50)
+LangTitle.Font = Enum.Font.GothamBold
+LangTitle.TextSize = 18
+LangTitle.ZIndex = 101
+LangTitle.Parent = LangFrame
+
+local IndoBtn = Instance.new("TextButton")
+IndoBtn.Size = UDim2.new(1, -40, 0, 50)
+IndoBtn.Position = UDim2.new(0, 20, 0, 70)
+IndoBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+IndoBtn.Text = T("INDO_BTN")
+IndoBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+IndoBtn.Font = Enum.Font.GothamBold
+IndoBtn.TextSize = 16
+IndoBtn.ZIndex = 101
+IndoBtn.Parent = LangFrame
+
+local IndoCorner = Instance.new("UICorner")
+IndoCorner.CornerRadius = UDim.new(0, 8)
+IndoCorner.Parent = IndoBtn
+
+local EngBtn = Instance.new("TextButton")
+EngBtn.Size = UDim2.new(1, -40, 0, 50)
+EngBtn.Position = UDim2.new(0, 20, 0, 130)
+EngBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 200)
+EngBtn.Text = T("ENGLISH_BTN")
+EngBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+EngBtn.Font = Enum.Font.GothamBold
+EngBtn.TextSize = 16
+EngBtn.ZIndex = 101
+EngBtn.Parent = LangFrame
+
+local EngCorner = Instance.new("UICorner")
+EngCorner.CornerRadius = UDim.new(0, 8)
+EngCorner.Parent = EngBtn
+
+-- FUNCTION BUAT LOAD GUI UTAMA
+local function loadMainGUI()
+	if LangGui then LangGui:Destroy() end
+	
+	local ScreenGui = Instance.new("ScreenGui")
+	ScreenGui.Name = "XVvanNX_TP_V32"
+	ScreenGui.ResetOnSpawn = false
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	ScreenGui.Parent = PlayerGui
+
+	local MainFrame = Instance.new("Frame")
+	MainFrame.Size = UDim2.new(0, 270, 0, 300) -- TAMBAH TINGGI BUAT TOMBOL HIT
+	MainFrame.Position = UDim2.new(0, 20, 0.5, -150)
+	MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	MainFrame.BorderSizePixel = 0
+	MainFrame.Active = true
+	MainFrame.Draggable = true
+	MainFrame.ZIndex = 10
+	MainFrame.Parent = ScreenGui
+
+	local UICorner = Instance.new("UICorner")
+	UICorner.CornerRadius = UDim.new(0, 10)
+	UICorner.Parent = MainFrame
+
+	local Title = Instance.new("TextLabel")
+	Title.Size = UDim2.new(1, 0, 0, 25)
+	Title.BackgroundTransparency = 1
+	Title.Text = T("TITLE")
+	Title.TextColor3 = Color3.fromRGB(50, 255, 50)
+	Title.Font = Enum.Font.GothamBold
+	Title.TextSize = 15
+	Title.ZIndex = 11
+	Title.Parent = MainFrame
+
+	local CreatorLabel = Instance.new("TextLabel")
+	CreatorLabel.Size = UDim2.new(1, 0, 0, 15)
+	CreatorLabel.Position = UDim2.new(0, 0, 0, 22)
+	CreatorLabel.BackgroundTransparency = 1
+	CreatorLabel.Text = T("SUBTITLE")
+	CreatorLabel.TextColor3 = Color3.fromRGB(0, 255, 150)
+	CreatorLabel.Font = Enum.Font.GothamBold
+	CreatorLabel.TextSize = 11
+	CreatorLabel.ZIndex = 11
+	CreatorLabel.Parent = MainFrame
+
+	local StealCountLabel = Instance.new("TextLabel")
+	StealCountLabel.Size = UDim2.new(1, 0, 0, 15)
+	StealCountLabel.Position = UDim2.new(0, 0, 0, 45)
+	StealCountLabel.BackgroundTransparency = 1
+	StealCountLabel.Text = T("STOLEN")..": 0/20 | "..T("SKIP")..": 0"
+	StealCountLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+	StealCountLabel.Font = Enum.Font.GothamBold
+	StealCountLabel.TextSize = 11
+	StealCountLabel.ZIndex = 11
+	StealCountLabel.Parent = MainFrame
+
+	local StatusLabel = Instance.new("TextLabel")
+	StatusLabel.Size = UDim2.new(1, -20, 0, 20)
+	StatusLabel.Position = UDim2.new(0, 10, 0, 65)
+	StatusLabel.BackgroundTransparency = 1
+	StatusLabel.Text = T("STATUS_OFF")
+	StatusLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
+	StatusLabel.Font = Enum.Font.GothamBold
+	StatusLabel.TextSize = 13
+	StatusLabel.ZIndex = 11
+	StatusLabel.Parent = MainFrame
+
+	local AutoBtn = Instance.new("TextButton")
+	AutoBtn.Size = UDim2.new(1, -20, 0, 30)
+	AutoBtn.Position = UDim2.new(0, 10, 0, 90)
+	AutoBtn.BackgroundColor3 = Color3.fromRGB(200, 30, 30)
+	AutoBtn.Text = T("AUTO_OFF")
+	AutoBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	AutoBtn.Font = Enum.Font.GothamBlack
+	AutoBtn.TextSize = 14
+	AutoBtn.ZIndex = 11
+	AutoBtn.Parent = MainFrame
+
+	-- TOMBOL AUTO HIT BARU
+	local HitBtn = Instance.new("TextButton")
+	HitBtn.Size = UDim2.new(1, -20, 0, 30)
+	HitBtn.Position = UDim2.new(0, 10, 0, 125)
+	HitBtn.BackgroundColor3 = Color3.fromRGB(200, 30, 30)
+	HitBtn.Text = T("HIT_OFF")
+	HitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	HitBtn.Font = Enum.Font.GothamBlack
+	HitBtn.TextSize = 14
+	HitBtn.ZIndex = 11
+	HitBtn.Parent = MainFrame
+
+	local SetGardenBtn = Instance.new("TextButton")
+	SetGardenBtn.Size = UDim2.new(1, -20, 0, 28)
+	SetGardenBtn.Position = UDim2.new(0, 10, 0, 160)
+	SetGardenBtn.BackgroundColor3 = Color3.fromRGB(30, 100, 200)
+	SetGardenBtn.Text = T("SET_GARDEN")
+	SetGardenBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	SetGardenBtn.Font = Enum.Font.GothamBold
+	SetGardenBtn.TextSize = 12
+	SetGardenBtn.ZIndex = 11
+	SetGardenBtn.Parent = MainFrame
+
+	local BtnCorner = Instance.new("UICorner")
+	BtnCorner.CornerRadius = UDim.new(0, 8)
+	BtnCorner.Parent = AutoBtn
+
+	local HitCorner = Instance.new("UICorner")
+	HitCorner.CornerRadius = UDim.new(0, 8)
+	HitCorner.Parent = HitBtn
+
+	local SetCorner = Instance.new("UICorner")
+	SetCorner.CornerRadius = UDim.new(0, 6)
+	SetCorner.Parent = SetGardenBtn
+
+	-- PROFILE SECTION
+	local ProfileDivider = Instance.new("Frame")
+	ProfileDivider.Size = UDim2.new(1, -20, 0, 2)
+	ProfileDivider.Position = UDim2.new(0, 10, 0, 195)
+	ProfileDivider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	ProfileDivider.BorderSizePixel = 0
+	ProfileDivider.ZIndex = 11
+	ProfileDivider.Parent = MainFrame
+
+	local ProfilePic = Instance.new("ImageLabel")
+	ProfilePic.Size = UDim2.new(0, 50, 0, 50)
+	ProfilePic.Position = UDim2.new(0, 10, 0, 205)
+	ProfilePic.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	ProfilePic.BorderSizePixel = 0
+	ProfilePic.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+	ProfilePic.ZIndex = 11
+	ProfilePic.Parent = MainFrame
+
+	local PicCorner = Instance.new("UICorner")
+	PicCorner.CornerRadius = UDim.new(0, 8)
+	PicCorner.Parent = ProfilePic
+
+	local UsernameLabel = Instance.new("TextLabel")
+	UsernameLabel.Size = UDim2.new(1, -70, 0, 15)
+	UsernameLabel.Position = UDim2.new(0, 65, 0, 205)
+	UsernameLabel.BackgroundTransparency = 1
+	UsernameLabel.Text = T("USER")..": "..LocalPlayer.Name
+	UsernameLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
+	UsernameLabel.Font = Enum.Font.GothamBold
+	UsernameLabel.TextSize = 11
+	UsernameLabel.TextXAlignment = Enum.TextXAlignment.Left
+	UsernameLabel.ZIndex = 11
+	UsernameLabel.Parent = MainFrame
+
+	local DisplayLabel = Instance.new("TextLabel")
+	DisplayLabel.Size = UDim2.new(1, -70, 0, 15)
+	DisplayLabel.Position = UDim2.new(0, 65, 0, 222)
+	DisplayLabel.BackgroundTransparency = 1
+	DisplayLabel.Text = T("DISPLAY")..": "..LocalPlayer.DisplayName
+	DisplayLabel.TextColor3 = Color3.fromRGB(255, 150, 255)
+	DisplayLabel.Font = Enum.Font.GothamBold
+	DisplayLabel.TextSize = 11
+	DisplayLabel.TextXAlignment = Enum.TextXAlignment.Left
+	DisplayLabel.ZIndex = 11
+	DisplayLabel.Parent = MainFrame
+
+	local TimeLabel = Instance.new("TextLabel")
+	TimeLabel.Size = UDim2.new(1, -70, 0, 15)
+	TimeLabel.Position = UDim2.new(0, 65, 0, 239)
+	TimeLabel.BackgroundTransparency = 1
+	TimeLabel.Text = T("TIME")..": 00:00:00"
+	TimeLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
+	TimeLabel.Font = Enum.Font.GothamBold
+	TimeLabel.TextSize = 11
+	TimeLabel.TextXAlignment = Enum.TextXAlignment.Left
+	TimeLabel.ZIndex = 11
+	TimeLabel.Parent = MainFrame
+
+	-- LOAD PROFILE PIC
+	task.spawn(function()
+		local success, content = pcall(function()
+			return Players:GetUserThumbnailAsync(LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+		end)
+		if success and content then
+			ProfilePic.Image = content
+		end
+	end)
+
+	-- TP STEAL + AUTO HIT LOGIC
+	local AutoSteal = false
+	local AutoHit = false
+	local StealConnection
+	local HitConnection
+	local MAX_STEAL = 20
+	local isStealing = false
+	local stealCount = 0
+	local skipCount = 0
+	local gardenPosition = nil
+	local blacklist = {}
+
+	local SKIP_KEYWORDS = {
+		"can't be stolen", "cant be stolen", "cannot be stolen", "can not be stolen",
+		"locked", "protected", "private", "cooldown", "wait", "immune",
+		"not stealable", "no steal", "disabled", "only steal at night",
+		"owner is in their garden", "owner in garden", "you can't steal"
+	}
+
+	-- UPDATE JAM REALTIME
+	task.spawn(function()
+		while ScreenGui.Parent do
+			task.wait(1)
+			local time = os.date("*t")
+			TimeLabel.Text = T("TIME")..": "..string.format("%02d:%02d", time.hour, time.min, time.sec)
+		end
+	end)
+
+	-- SET GARDEN MANUAL
+	SetGardenBtn.MouseButton1Click:Connect(function()
+		local char = LocalPlayer.Character
+		local hrp = char and char:FindFirstChild("HumanoidRootPart")
+		if hrp then
+			gardenPosition = hrp.CFrame
+			SetGardenBtn.Text = T("GARDEN_SET")
+			SetGardenBtn.BackgroundColor3 = Color3.fromRGB(30, 200, 30)
+			task.wait(1)
+			SetGardenBtn.Text = T("SET_GARDEN")
+			SetGardenBtn.BackgroundColor3 = Color3.fromRGB(30, 100, 200)
+		end
+	end)
+
+	-- CEK MALAM ATAU SIANG
+	local function isNight()
+		local clockTime = Lighting.ClockTime
+		return clockTime >= 18 or clockTime < 6
+	end
+
+	-- BALIK KE GARDEN
+	local function returnToGarden()
+		local char = LocalPlayer.Character
+		local hrp = char and char:FindFirstChild("HumanoidRootPart")
+		if not hrp then return end
+		
+		if gardenPosition then
+			hrp.CFrame = gardenPosition
+			StatusLabel.Text = T("STATUS_BACK")
+			StatusLabel.TextColor3 = Color3.fromRGB(0, 200, 255)
+		end
+	end
+
+	-- CEK APAKAH PLANT BISA DI STEAL
+	local function canSteal(prompt)
+		if not prompt.Enabled then return false end
+		if blacklist[prompt] then return false end
+		if prompt:GetAttribute("Locked") == true then return false end
+		if prompt.Parent and prompt.Parent:GetAttribute("Locked") == true then return false end
+		
+		local promptText = (prompt.ActionText.. prompt.ObjectText):lower()
+		for _, keyword in pairs(SKIP_KEYWORDS) do
+			if string.find(promptText, keyword) then
+				return false
+			end
+		end
+		
+		return true
+	end
+
+	-- REALTIME HUNT
+	local function huntAndSteal()
+		if isStealing then return 0 end
+		
+		if not isNight() then
+			StatusLabel.Text = T("STATUS_DAY")
+			StatusLabel.TextColor3 = Color3.fromRGB(255, 100, 0)
+			return 0
+		end
+		
+		local char = LocalPlayer.Character
+		local hrp = char and char:FindFirstChild("HumanoidRootPart")
+		if not hrp then return 0 end
+		
+		local closestPrompt = nil
+		local closestDist = math.huge
+		
+		for _, obj in pairs(workspace:GetDescendants()) do
+			if obj:IsA("ProximityPrompt") then
+				local text = (obj.ActionText.. obj.ObjectText.. obj.Name):lower()
+				if string.find(text, "steal") then
+					if obj.Parent and obj.Parent:IsA("BasePart") and obj.Enabled then
+						if not blacklist[obj] then
+							if canSteal(obj) then
+								local distance = (hrp.Position - obj.Parent.Position).Magnitude
+								if distance < closestDist then
+									closestDist = distance
+									closestPrompt = obj
+								end
+							else
+								blacklist[obj] = true
+								skipCount = skipCount + 1
+								StealCountLabel.Text = T("STOLEN")..": "..stealCount.."/"..MAX_STEAL.." | "..T("SKIP")..": "..skipCount
+							end
+						end
+					end
+				end
+			end
+		end
+		
+		if closestPrompt then
+			isStealing = true
+			local oldPos = hrp.CFrame
+			local targetPos = closestPrompt.Parent.CFrame + Vector3.new(0, 3, 0)
+			
+			StatusLabel.Text = T("STATUS_TP").." "..math.floor(closestDist).." STUDS"
+			StatusLabel.TextColor3 = Color3.fromRGB(255, 200, 0)
+			
+			hrp.CFrame = targetPos
+			task.wait(0.05)
+			
+			local success = false
+			pcall(function()
+				fireproximityprompt(closestPrompt)
+				success = true
+			end)
+			
+			task.wait(0.2)
+			for _, gui in pairs(PlayerGui:GetDescendants()) do
+				if gui:IsA("TextLabel") and gui.Visible then
+					local text = gui.Text:lower()
+					if string.find(text, "owner is in their garden") or string.find(text, "you can't steal") then
+						blacklist[closestPrompt] = true
+						skipCount = skipCount + 1
+						StealCountLabel.Text = T("STOLEN")..": "..stealCount.."/"..MAX_STEAL.." | "..T("SKIP")..": "..skipCount
+						StatusLabel.Text = T("STATUS_OWNER")
+						StatusLabel.TextColor3 = Color3.fromRGB(255, 150, 0)
+						success = false
+						break
+					end
+				end
+			end
+			
+			if not success then
+				blacklist[closestPrompt] = true
+				skipCount = skipCount + 1
+				StealCountLabel.Text = T("STOLEN")..": "..stealCount.."/"..MAX_STEAL.." | "..T("SKIP")..": "..skipCount
+			end
+			
+			task.wait(0.1)
+			hrp.CFrame = oldPos
+			
+			isStealing = false
+			
+			if success then
+				stealCount = stealCount + 1
+				StealCountLabel.Text = T("STOLEN")..": "..stealCount.."/"..MAX_STEAL.." | "..T("SKIP")..": "..skipCount
+			end
+			
+			if stealCount >= MAX_STEAL then
+				StatusLabel.Text = "Status: RETURNING..."
+				StatusLabel.TextColor3 = Color3.fromRGB(255, 200, 0)
+				task.wait(0.3)
+				returnToGarden()
+				stealCount = 0
+				skipCount = 0
+				table.clear(blacklist)
+				StealCountLabel.Text = T("STOLEN")..": 0/"..MAX_STEAL.." | "..T("SKIP")..": 0"
+				task.wait(3)
+			end
+			
+			return success and 1 or 0
+		end
+		return 0
+	end
+
+	-- AUTO HIT THIEF LOGIC
+	local function hitThief()
+		if not AutoHit then return end
+		if not gardenPosition then return end
+		
+		local char = LocalPlayer.Character
+		local hrp = char and char:FindFirstChild("HumanoidRootPart")
+		if not hrp then return end
+		
+		local humanoid = char:FindFirstChild("Humanoid")
+		if not humanoid then return end
+		
+		-- CARI PLAYER LAIN DI GARDEN KITA
+		for _, plr in pairs(Players:GetPlayers()) do
+			if plr ~= LocalPlayer and plr.Character then
+				local theirHRP = plr.Character:FindFirstChild("HumanoidRootPart")
+				local theirHum = plr.Character:FindFirstChild("Humanoid")
+				if theirHRP and theirHum and theirHum.Health > 0 then
+					-- CEK KALO DEKET GARDEN KITA (50 STUDS)
+					local dist = (theirHRP.Position - gardenPosition.Position).Magnitude
+					if dist < 50 then
+						-- EQUIP SHOVEL
+						local shovel = LocalPlayer.Backpack:FindFirstChild("Shovel") or char:FindFirstChild("Shovel")
+						if shovel then
+							humanoid:EquipTool(shovel)
+							task.wait(0.1)
+							
+							-- TP KE MALING + PUKUL
+							local oldPos = hrp.CFrame
+							hrp.CFrame = theirHRP.CFrame * CFrame.new(0, 0, 3)
+							StatusLabel.Text = T("STATUS_HIT").." "..plr.Name
+							StatusLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+							
+							-- SPAM CLICK BUAT PUKUL
+							for i = 1, 5 do
+								shovel:Activate()
+								task.wait(0.1)
+							end
+							
+							task.wait(0.5)
+							hrp.CFrame = oldPos
+						end
+						break
+					end
+				end
+			end
+		end
+	end
+
+	AutoBtn.MouseButton1Click:Connect(function()
+		if not isNight() then
+			StatusLabel.Text = T("STATUS_NIGHT")
+			StatusLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+			task.wait(2)
+			StatusLabel.Text = T("STATUS_OFF")
+			return
+		end
+		
+		AutoSteal = not AutoSteal
+		
+		if AutoSteal then
+			AutoBtn.Text = T("AUTO_ON")
+			AutoBtn.BackgroundColor3 = Color3.fromRGB(30, 200, 200)
+			StatusLabel.Text = T("STATUS_ON")
+			StatusLabel.TextColor3 = Color3.fromRGB(255, 200, 0)
+			stealCount = 0
+			skipCount = 0
+			table.clear(blacklist)
+			StealCountLabel.Text = T("STOLEN")..": 0/"..MAX_STEAL.." | "..T("SKIP")..": "..skipCount
+			
+			StealConnection = task.spawn(function()
+				while AutoSteal do
+					if not isNight() then
+						StatusLabel.Text = T("STATUS_NIGHT")
+						StatusLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+						AutoSteal = false
+						AutoBtn.Text = T("AUTO_OFF")
+						AutoBtn.BackgroundColor3 = Color3.fromRGB(200, 30, 30)
+						break
+					end
+					
+					local stolen = huntAndSteal()
+					
+					if stolen > 0 then
+						StatusLabel.Text = T("STATUS_STEAL").." "..stealCount.."/"..MAX_STEAL
+						StatusLabel.TextColor3 = Color3.fromRGB(0, 255, 100)
+						task.wait(0.5)
+					else
+						StatusLabel.Text = "HUNTING | "..T("SKIP").." "..skipCount
+						StatusLabel.TextColor3 = Color3.fromRGB(255, 150, 0)
+						task.wait(0.8)
+					end
+				end
+			end)
+		else
+			AutoBtn.Text = T("AUTO_OFF")
+			AutoBtn.BackgroundColor3 = Color3.fromRGB(200, 30, 30)
+			StatusLabel.Text = T("STATUS_OFF")
+			StatusLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
+			isStealing = false
+			
+			if StealConnection then
+				task.cancel(StealConnection)
+			end
+		end
+	end)
+
+	-- TOMBOL AUTO HIT
+	HitBtn.MouseButton1Click:Connect(function()
+		AutoHit = not AutoHit
+		
+		if AutoHit then
+			HitBtn.Text = T("HIT_ON")
+			HitBtn.BackgroundColor3 = Color3.fromRGB(30, 200, 200)
+			
+			HitConnection = task.spawn(function()
+				while AutoHit do
+					hitThief()
+					task.wait(2) -- CEK TIAP 2 DETIK
+				end
+			end)
+		else
+			HitBtn.Text = T("HIT_OFF")
+			HitBtn.BackgroundColor3 = Color3.fromRGB(200, 30, 30)
+			
+			if HitConnection then
+				task.cancel(HitConnection)
+			end
+		end
+	end)
+
+	print("GAG2 TP STEAL V32 by XVvanNX LOADED - LANG: "..LANG)
+end
+
+-- PILIH BAHASA DULU
+IndoBtn.MouseButton1Click:Connect(function()
+	LANG = "ID"
+	loadMainGUI()
+end)
+
+EngBtn.MouseButton1Click:Connect(function()
+	LANG = "EN"
+	loadMainGUI()
+end)
