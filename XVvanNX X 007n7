@@ -1,0 +1,1450 @@
+-- ═══════════════════════════════════════
+-- XVvanNX GUI
+-- made by @irvanananda, script made by @007n7_txt
+-- ═══════════════════════════════════════
+
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "XVvanNX GUI"
+ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.ResetOnSpawn = false
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0,400,0,300)
+MainFrame.Position = UDim2.new(0.5,-200,0.5,-150)
+MainFrame.BackgroundColor3 = Color3.fromRGB(255,255,255)
+MainFrame.BackgroundTransparency = 0.01
+MainFrame.BorderSizePixel = 0
+MainFrame.ClipsDescendants = true
+MainFrame.Parent = ScreenGui
+Instance.new("UICorner",MainFrame).CornerRadius = UDim.new(0,10)
+
+local TitleBar = Instance.new("Frame")
+TitleBar.Size = UDim2.new(1,0,0,38)
+TitleBar.BackgroundColor3 = Color3.fromRGB(12,12,22)
+TitleBar.BorderSizePixel = 0
+TitleBar.Parent = MainFrame
+Instance.new("UICorner",TitleBar).CornerRadius = UDim.new(0,10)
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1,-80,0,20); Title.Position = UDim2.new(0,10,0,2)
+Title.BackgroundTransparency = 1; Title.Text = "XVvanNX GUI"
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.Font = Enum.Font.GothamBold; Title.TextSize = 20
+Title.TextXAlignment = Enum.TextXAlignment.Left; Title.Parent = TitleBar
+
+local Credits = Instance.new("TextLabel")
+Credits.Size = UDim2.new(1,-80,0,12); Credits.Position = UDim2.new(0,10,0,23)
+Credits.BackgroundTransparency = 1; Credits.Text = "made by @irvanananda, script made by @007n7_txt"
+Credits.TextColor3 = Color3.fromRGB(125,125,150)
+Credits.Font = Enum.Font.Gotham; Credits.TextSize = 9
+Credits.TextXAlignment = Enum.TextXAlignment.Left; Credits.Parent = TitleBar
+
+local CloseBtn = Instance.new("TextButton")
+CloseBtn.Size=UDim2.new(0,26,0,26); CloseBtn.Position=UDim2.new(1,-32,0,6)
+CloseBtn.BackgroundColor3=Color3.fromRGB(195,48,48); CloseBtn.Text="✕"
+CloseBtn.TextColor3=Color3.new(1,1,1); CloseBtn.Font=Enum.Font.GothamBold; CloseBtn.TextSize=11; CloseBtn.BorderSizePixel=0
+CloseBtn.Parent=TitleBar
+Instance.new("UICorner",CloseBtn).CornerRadius=UDim.new(0,6)
+CloseBtn.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
+
+local MinBtn = Instance.new("TextButton")
+MinBtn.Size=UDim2.new(0,26,0,26); MinBtn.Position=UDim2.new(1,-64,0,6)
+MinBtn.BackgroundColor3=Color3.fromRGB(48,115,215); MinBtn.Text="—"
+MinBtn.TextColor3=Color3.new(1,1,1); MinBtn.Font=Enum.Font.GothamBold; MinBtn.TextSize=12; MinBtn.BorderSizePixel=0
+MinBtn.Parent=TitleBar
+Instance.new("UICorner",MinBtn).CornerRadius=UDim.new(0,6)
+local _min=false; local _orig=MainFrame.Size
+MinBtn.MouseButton1Click:Connect(function()
+  _min=not _min
+  TweenService:Create(MainFrame,TweenInfo.new(0.25,Enum.EasingStyle.Quint),{Size=_min and UDim2.new(0,400,0,40) or _orig}):Play()
+  MinBtn.Text=_min and "+" or "—"
+end)
+
+do local _d,_ds,_fs=false,nil,nil
+  TitleBar.InputBegan:Connect(function(i) if i.UserInputType==Enum.UserInputType.MouseButton1 or i.UserInputType==Enum.UserInputType.Touch then _d=true;_ds=i.Position;_fs=MainFrame.Position end end)
+  TitleBar.InputEnded:Connect(function(i) if i.UserInputType==Enum.UserInputType.MouseButton1 or i.UserInputType==Enum.UserInputType.Touch then _d=false end end)
+  UserInputService.InputChanged:Connect(function(i) if _d and (i.UserInputType==Enum.UserInputType.MouseMovement or i.UserInputType==Enum.UserInputType.Touch) then local d=i.Position-_ds;MainFrame.Position=UDim2.new(_fs.X.Scale,_fs.X.Offset+d.X,_fs.Y.Scale,_fs.Y.Offset+d.Y) end end)
+end
+
+local Accent = Instance.new("Frame")
+Accent.Size=UDim2.new(1,0,0,2); Accent.Position=UDim2.new(0,0,0,38)
+Accent.BackgroundColor3=Color3.fromRGB(235,195,35); Accent.BorderSizePixel=0; Accent.Parent=MainFrame
+
+local Content = Instance.new("ScrollingFrame")
+Content.Size=UDim2.new(1,-12,1,-48); Content.Position=UDim2.new(0,6,0,44)
+Content.BackgroundTransparency=1; Content.BorderSizePixel=0; Content.ScrollBarThickness=3
+Content.AutomaticCanvasSize=Enum.AutomaticSize.Y; Content.Parent=MainFrame
+Instance.new("UIListLayout",Content).Padding=UDim.new(0,4)
+
+local e1=Instance.new("TextButton")
+e1.Size=UDim2.new(1,0,0,30); e1.BackgroundColor3=Color3.fromRGB(235,195,35); e1.Text="007n7_txt executor final"
+e1.TextColor3=Color3.new(1,1,1); e1.Font=Enum.Font.GothamBold; e1.TextSize=12; e1.BorderSizePixel=0; e1.Parent=Content
+Instance.new("UICorner",e1).CornerRadius=UDim.new(0,6)
+e1.MouseButton1Click:Connect(function()
+  -- 007n7_txt | EXECUTOR FINAL
+
+local player = game.Players.LocalPlayer
+
+-- ======================
+-- CONFIG
+-- ======================
+
+local KEY = "007n7_Xk92Pq_A81Z"
+local PREFIX = "007n7_txt"
+local hasAccess = false
+
+-- ======================
+-- GUI EXECUTOR
+-- ======================
+
+local gui = Instance.new("ScreenGui", player.PlayerGui)
+gui.Name = "007n7_executor"
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0,300,0,200)
+frame.Position = UDim2.new(0.3,0,0.3,0)
+frame.BackgroundColor3 = Color3.fromRGB(150,0,0)
+frame.Active = true
+frame.Draggable = true
+Instance.new("UICorner", frame)
+
+local box = Instance.new("TextBox", frame)
+box.Size = UDim2.new(1,0,0.5,0)
+box.PlaceholderText = "Masukkan key / command..."
+box.TextColor3 = Color3.new(1,1,1)
+box.BackgroundColor3 = Color3.fromRGB(100,0,0)
+box.ClearTextOnFocus = false
+
+local output = Instance.new("TextLabel", frame)
+output.Size = UDim2.new(1,0,0.2,0)
+output.Position = UDim2.new(0,0,0.5,0)
+output.Text = "Masukkan KEY dulu"
+output.TextColor3 = Color3.new(1,1,1)
+output.BackgroundTransparency = 1
+
+local btn = Instance.new("TextButton", frame)
+btn.Size = UDim2.new(1,0,0.3,0)
+btn.Position = UDim2.new(0,0,0.7,0)
+btn.Text = "EXECUTE"
+btn.BackgroundColor3 = Color3.fromRGB(200,0,0)
+btn.TextColor3 = Color3.new(1,1,1)
+
+-- ======================
+-- SCRIPT WAKTU
+-- ======================
+
+local function runWaktu()
+
+	if player.PlayerGui:FindFirstChild("007n7_txt | WAKTU") then return end
+
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+
+	local timeStopped = false
+	local connection
+	local frozenData = {}
+
+	local gui = Instance.new("ScreenGui", player.PlayerGui)
+	gui.Name = "007n7_txt | WAKTU"
+
+	local frame = Instance.new("Frame", gui)
+	frame.Size = UDim2.new(0,180,0,80)
+	frame.Position = UDim2.new(0,50,0,50)
+	frame.BackgroundColor3 = Color3.fromRGB(0,200,0)
+	frame.BorderColor3 = Color3.fromRGB(255,0,0)
+	frame.BorderSizePixel = 4
+	frame.Active = true
+	frame.Draggable = true
+
+	local button = Instance.new("TextButton", frame)
+	button.Size = UDim2.new(0.8,0,0,40)
+	button.Position = UDim2.new(0.1,0,0.25,0)
+	button.Text = "TIME STOP: OFF"
+	button.BackgroundColor3 = Color3.fromRGB(0,200,0)
+	button.TextColor3 = Color3.new(1,1,1)
+
+	local function startTimeStop()
+		if timeStopped then return end
+		timeStopped = true
+		
+		frozenData = {}
+		for _, plr in pairs(Players:GetPlayers()) do
+			if plr ~= player then
+				local char = plr.Character
+				if char and char:FindFirstChild("HumanoidRootPart") then
+					frozenData[plr] = char.HumanoidRootPart.CFrame
+				end
+			end
+		end
+		
+		connection = RunService.RenderStepped:Connect(function()
+			for plr, cf in pairs(frozenData) do
+				local root = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
+				if root then
+					root.CFrame = cf
+				end
+			end
+		end)
+	end
+
+	local function stopTimeStop()
+		timeStopped = false
+		if connection then connection:Disconnect() end
+	end
+
+	button.MouseButton1Click:Connect(function()
+		if timeStopped then
+			stopTimeStop()
+			button.Text = "TIME STOP: OFF"
+		else
+			startTimeStop()
+			button.Text = "TIME STOP: ON"
+		end
+	end)
+
+end
+
+-- ======================
+-- SCRIPT REPORT
+-- ======================
+
+local function runReport()
+
+	if player.PlayerGui:FindFirstChild("ReportGUI_007n7") then return end
+
+	local gui = Instance.new("ScreenGui", player.PlayerGui)
+	gui.Name = "ReportGUI_007n7"
+
+	local frame = Instance.new("Frame", gui)
+	frame.Size = UDim2.new(0,340,0,320)
+	frame.Position = UDim2.new(0.5,-170,0.5,-160)
+	frame.BackgroundColor3 = Color3.fromRGB(0,90,0)
+	frame.Active = true
+	frame.Draggable = true
+
+	local title = Instance.new("TextLabel", frame)
+	title.Size = UDim2.new(1,0,0,30)
+	title.BackgroundColor3 = Color3.fromRGB(0,150,0)
+	title.Text = "007n7_txt | REPORT"
+	title.TextColor3 = Color3.new(1,1,1)
+
+	local toggle = Instance.new("TextButton", frame)
+	toggle.Size = UDim2.new(0,60,0,25)
+	toggle.Position = UDim2.new(1,-65,0,32)
+	toggle.Text = "Hide"
+	toggle.BackgroundColor3 = Color3.fromRGB(170,0,0)
+
+	local scroll = Instance.new("ScrollingFrame", frame)
+	scroll.Size = UDim2.new(1,-10,1,-70)
+	scroll.Position = UDim2.new(0,5,0,65)
+	scroll.CanvasSize = UDim2.new(0,0,0,500)
+	scroll.BackgroundTransparency = 1
+
+	local y = 0
+
+	local function section(titleText, content)
+		local label = Instance.new("TextLabel", scroll)
+		label.Size = UDim2.new(1,0,0,25)
+		label.Position = UDim2.new(0,0,0,y)
+		label.Text = titleText
+		label.BackgroundColor3 = Color3.fromRGB(0,130,0)
+		label.TextColor3 = Color3.new(1,1,1)
+		y = y + 30
+
+		local box = Instance.new("TextBox", scroll)
+		box.Size = UDim2.new(0.75,0,0,80)
+		box.Position = UDim2.new(0,0,0,y)
+		box.Text = content
+		box.TextWrapped = true
+		box.BackgroundColor3 = Color3.fromRGB(0,110,0)
+		box.TextColor3 = Color3.new(1,1,1)
+
+		y = y + 90
+	end
+
+	section("Report Executor","Player menggunakan executor")
+	section("Report Toxic","Player toxic di chat")
+
+	local open = true
+	toggle.MouseButton1Click:Connect(function()
+		open = not open
+		scroll.Visible = open
+	end)
+
+end
+
+-- ======================
+-- EXECUTE SYSTEM
+-- ======================
+
+btn.MouseButton1Click:Connect(function()
+
+	local input = box.Text
+
+	-- KEY
+	if input == KEY then
+		hasAccess = true
+		output.Text = "Akses diterima!"
+		return
+	end
+
+	input = input:lower()
+
+	-- PREFIX
+	if not input:find(PREFIX) then
+		output.Text = "Gunakan prefix!"
+		return
+	end
+
+	local cmd = input:gsub(PREFIX.." ","")
+
+	-- PUBLIC
+	if cmd == "waktu" then
+		output.Text = "Menjalankan WAKTU..."
+		runWaktu()
+		return
+	end
+
+	if cmd == "report" then
+		output.Text = "Membuka REPORT..."
+		runReport()
+		return
+	end
+
+	-- PRIVATE
+	if not hasAccess then
+		output.Text = "Butuh key!"
+		return
+	end
+
+	output.Text = "Command tidak dikenal"
+
+end)
+end)
+
+local e2=Instance.new("TextButton")
+e2.Size=UDim2.new(1,0,0,30); e2.BackgroundColor3=Color3.fromRGB(235,195,35); e2.Text="Stop time by 007n7_txt"
+e2.TextColor3=Color3.new(1,1,1); e2.Font=Enum.Font.GothamBold; e2.TextSize=12; e2.BorderSizePixel=0; e2.Parent=Content
+Instance.new("UICorner",e2).CornerRadius=UDim.new(0,6)
+e2.MouseButton1Click:Connect(function()
+  -- 007n7_txt | WAKTU
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+local timeStopped = false
+local connection
+local frozenData = {}
+
+-- ================= GUI =================
+
+local gui = Instance.new("ScreenGui", player.PlayerGui)
+gui.Name = "007n7_txt | WAKTU"
+gui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0,180,0,80) -- ukuran lebih kecil
+frame.Position = UDim2.new(0,50,0,50)
+frame.BackgroundColor3 = Color3.fromRGB(0,200,0) -- hijau
+frame.BorderColor3 = Color3.fromRGB(255,0,0) -- pinggir merah
+frame.BorderSizePixel = 4
+frame.Active = true
+frame.Draggable = true
+
+local button = Instance.new("TextButton", frame)
+button.Size = UDim2.new(0.8,0,0,40)
+button.Position = UDim2.new(0.1,0,0.25,0)
+button.Text = "TIME STOP: OFF"
+button.BackgroundColor3 = Color3.fromRGB(0,200,0) -- hijau
+button.BorderColor3 = Color3.fromRGB(255,0,0) -- pinggir merah
+button.BorderSizePixel = 3
+button.TextColor3 = Color3.new(1,1,1)
+button.Font = Enum.Font.GothamBold
+button.TextSize = 14
+
+-- ================= POINTER =================
+
+local pointer = Instance.new("Part")
+pointer.Size = Vector3.new(0.15,1.5,0.15) -- lebih kecil
+pointer.Anchored = true
+pointer.CanCollide = false
+pointer.Color = Color3.fromRGB(255,0,0)
+pointer.Material = Enum.Material.Neon
+pointer.Name = "TimeStopPointer"
+pointer.Parent = workspace
+
+-- ================= FUNCTIONS =================
+
+local function startTimeStop()
+	if timeStopped then return end
+	timeStopped = true
+	
+	-- Freeze players visually
+	frozenData = {}
+	for _, plr in pairs(Players:GetPlayers()) do
+		if plr ~= player then
+			local char = plr.Character
+			if char and char:FindFirstChild("HumanoidRootPart") then
+				frozenData[plr] = char.HumanoidRootPart.CFrame
+			end
+		end
+	end
+	
+	-- Change sky to green
+	local sky = workspace:FindFirstChildOfClass("Sky")
+	if sky then
+		local tween = TweenService:Create(sky, TweenInfo.new(1), {
+			SkyboxBkColor=Color3.fromRGB(0,255,0),
+			SkyboxDnColor=Color3.fromRGB(0,255,0),
+			SkyboxFtColor=Color3.fromRGB(0,255,0),
+			SkyboxLfColor=Color3.fromRGB(0,255,0),
+			SkyboxRtColor=Color3.fromRGB(0,255,0),
+			SkyboxUpColor=Color3.fromRGB(0,255,0)
+		})
+		tween:Play()
+	end
+	
+	-- Update loop
+	connection = RunService.RenderStepped:Connect(function()
+		for plr, cf in pairs(frozenData) do
+			local root = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
+			if root then
+				root.CFrame = cf
+			end
+		end
+		
+		local head = player.Character and player.Character:FindFirstChild("Head")
+		if head then
+			pointer.CFrame = head.CFrame * CFrame.new(0,2.5,0) * CFrame.Angles(0, tick() % 6.28, 0)
+		end
+	end)
+end
+
+local function stopTimeStop()
+	timeStopped = false
+	if connection then connection:Disconnect() end
+	pointer.CFrame = CFrame.new(0,9999,0)
+end
+
+button.MouseButton1Click:Connect(function()
+	if timeStopped then
+		stopTimeStop()
+		button.Text = "TIME STOP: OFF"
+	else
+		startTimeStop()
+		button.Text = "TIME STOP: ON"
+	end
+end)
+end)
+
+local e3=Instance.new("TextButton")
+e3.Size=UDim2.new(1,0,0,30); e3.BackgroundColor3=Color3.fromRGB(235,195,35); e3.Text="Report player by 007n7_txt"
+e3.TextColor3=Color3.new(1,1,1); e3.Font=Enum.Font.GothamBold; e3.TextSize=12; e3.BorderSizePixel=0; e3.Parent=Content
+Instance.new("UICorner",e3).CornerRadius=UDim.new(0,6)
+e3.MouseButton1Click:Connect(function()
+  -- 007n7_txt | REPORT | update
+
+local player = game.Players.LocalPlayer
+
+-- GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "ReportGUI_007n7"
+gui.Parent = player:WaitForChild("PlayerGui")
+
+-- FRAME UTAMA
+local frame = Instance.new("Frame")
+frame.Parent = gui
+frame.Size = UDim2.new(0, 340, 0, 320)
+frame.Position = UDim2.new(0.5, -170, 0.5, -160)
+frame.BackgroundColor3 = Color3.fromRGB(0, 90, 0)
+frame.Active = true
+frame.Draggable = true
+
+-- TITLE SCRIPT (TIDAK IKUT TERTUTUP)
+local title = Instance.new("TextLabel")
+title.Parent = frame
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+title.Text = "007n7_txt | REPORT | update"
+title.TextColor3 = Color3.new(1,1,1)
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 16
+
+-- TOMBOL HIDE/SHOW
+local toggle = Instance.new("TextButton")
+toggle.Parent = frame
+toggle.Size = UDim2.new(0, 60, 0, 25)
+toggle.Position = UDim2.new(1, -65, 0, 32)
+toggle.Text = "Hide"
+toggle.BackgroundColor3 = Color3.fromRGB(170,0,0)
+toggle.TextColor3 = Color3.new(1,1,1)
+
+-- SCROLL FRAME
+local scroll = Instance.new("ScrollingFrame")
+scroll.Parent = frame
+scroll.Size = UDim2.new(1, -10, 1, -70)
+scroll.Position = UDim2.new(0, 5, 0, 65)
+scroll.CanvasSize = UDim2.new(0, 0, 0, 900)
+scroll.ScrollBarThickness = 6
+scroll.BackgroundTransparency = 1
+
+local currentY = 0
+
+-- FUNCTION BUAT JUDUL + TEXT + COPY
+local function createSection(sectionTitle, textContent)
+
+    -- JUDUL
+    local label = Instance.new("TextLabel")
+    label.Parent = scroll
+    label.Size = UDim2.new(1, 0, 0, 25)
+    label.Position = UDim2.new(0, 0, 0, currentY)
+    label.BackgroundColor3 = Color3.fromRGB(0,130,0)
+    label.Text = sectionTitle
+    label.TextColor3 = Color3.new(1,1,1)
+    label.Font = Enum.Font.SourceSansBold
+    label.TextSize = 14
+    currentY = currentY + 30
+
+    -- TEXT BOX
+    local box = Instance.new("TextBox")
+    box.Parent = scroll
+    box.Size = UDim2.new(0.75, 0, 0, 80)
+    box.Position = UDim2.new(0, 0, 0, currentY)
+    box.TextWrapped = true
+    box.MultiLine = true
+    box.Text = textContent
+    box.BackgroundColor3 = Color3.fromRGB(0,110,0)
+    box.TextColor3 = Color3.new(1,1,1)
+    box.Font = Enum.Font.SourceSans
+    box.TextSize = 14
+    box.ClearTextOnFocus = false
+
+    -- COPY BUTTON
+    local copy = Instance.new("TextButton")
+    copy.Parent = scroll
+    copy.Size = UDim2.new(0.23, 0, 0, 80)
+    copy.Position = UDim2.new(0.77, 5, 0, currentY)
+    copy.Text = "COPY"
+    copy.BackgroundColor3 = Color3.fromRGB(170,0,0)
+    copy.TextColor3 = Color3.new(1,1,1)
+
+    copy.MouseButton1Click:Connect(function()
+        if setclipboard then
+            setclipboard(textContent)
+            copy.Text = "COPIED!"
+            task.wait(1)
+            copy.Text = "COPY"
+        end
+    end)
+
+    currentY = currentY + 95
+end
+
+-- =========================
+-- EXECUTOR SECTIONS
+-- =========================
+
+createSection("Report Executor",
+"This player is exploiting using an executor.\nThey are running unauthorized scripts that affect gameplay and may harm other players.\nPlease take appropriate action after reviewing their activity.")
+
+createSection("Report Executor",
+"I would like to report this player for using an executor and exploiting.\nThey are using unauthorized scripts which give them unfair advantages.\nPlease investigate this player.")
+
+createSection("Report Executor",
+"This player is using an executor to exploit the game.\nPlease review their activity.")
+
+-- =========================
+-- TOXIC SECTIONS
+-- =========================
+
+createSection("Report Toxic Player",
+"This player is using toxic and abusive language in the game chat.\nPlease review their activity and take appropriate action.")
+
+createSection("Report Toxic Player",
+"I would like to report this player for using offensive and disrespectful language.\nThey have been repeatedly saying inappropriate words in the chat.\nPlease investigate their behavior and take necessary action.")
+
+createSection("Report Toxic Player",
+"This player has been using inappropriate and abusive language in the chat.\nTheir words are offensive and create a negative environment for other players.\nPlease review their chat history and take appropriate action.")
+
+-- TOGGLE FUNCTION
+local opened = true
+
+toggle.MouseButton1Click:Connect(function()
+    opened = not opened
+    scroll.Visible = opened
+    toggle.Text = opened and "Hide" or "Show"
+end)
+end)
+
+local e4=Instance.new("TextButton")
+e4.Size=UDim2.new(1,0,0,30); e4.BackgroundColor3=Color3.fromRGB(235,195,35); e4.Text="Drone by 007n7_txt"
+e4.TextColor3=Color3.new(1,1,1); e4.Font=Enum.Font.GothamBold; e4.TextSize=12; e4.BorderSizePixel=0; e4.Parent=Content
+Instance.new("UICorner",e4).CornerRadius=UDim.new(0,6)
+e4.MouseButton1Click:Connect(function()
+  -- 007n7_txt | dron
+
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local humanoid = char:WaitForChild("Humanoid")
+
+local camera = workspace.CurrentCamera
+local RunService = game:GetService("RunService")
+local Debris = game:GetService("Debris")
+
+local camPart
+local control = false
+local speed = 2
+local up = false
+local down = false
+
+-- GUI
+local gui = Instance.new("ScreenGui")
+gui.Parent = player.PlayerGui
+gui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame",gui)
+frame.Size = UDim2.new(0,240,0,210)
+frame.Position = UDim2.new(0.4,0,0.3,0)
+frame.BackgroundColor3 = Color3.fromRGB(170,0,0)
+frame.Active = true
+frame.Draggable = true
+
+local corner = Instance.new("UICorner",frame)
+corner.CornerRadius = UDim.new(0,15)
+
+-- aura merah hacker
+local aura = Instance.new("UIStroke",frame)
+aura.Color = Color3.fromRGB(255,0,0)
+aura.Thickness = 3
+
+spawn(function()
+	while true do
+		aura.Transparency = math.random()*0.4
+		wait(0.15)
+	end
+end)
+
+-- judul
+local title = Instance.new("TextLabel",frame)
+title.Size = UDim2.new(1,0,0,30)
+title.BackgroundColor3 = Color3.fromRGB(120,0,0)
+title.Text = "007n7_txt | dron"
+title.TextScaled = true
+title.TextColor3 = Color3.new(1,1,1)
+
+local titleCorner = Instance.new("UICorner",title)
+titleCorner.CornerRadius = UDim.new(0,12)
+
+-- START DRONE
+local startBtn = Instance.new("TextButton",frame)
+startBtn.Size = UDim2.new(1,-20,0,30)
+startBtn.Position = UDim2.new(0,10,0,40)
+startBtn.Text = "START CAMERA"
+
+-- EXIT DRONE
+local exitBtn = Instance.new("TextButton",frame)
+exitBtn.Size = UDim2.new(1,-20,0,30)
+exitBtn.Position = UDim2.new(0,10,0,75)
+exitBtn.Text = "EXIT DRONE"
+
+-- speed +
+local speedUp = Instance.new("TextButton",frame)
+speedUp.Size = UDim2.new(0.45,-10,0,30)
+speedUp.Position = UDim2.new(0,10,0,110)
+speedUp.Text = "SPEED +"
+
+-- speed -
+local speedDown = Instance.new("TextButton",frame)
+speedDown.Size = UDim2.new(0.45,-10,0,30)
+speedDown.Position = UDim2.new(0.55,0,0,110)
+speedDown.Text = "SPEED -"
+
+-- UP
+local upBtn = Instance.new("TextButton",frame)
+upBtn.Size = UDim2.new(0.45,-10,0,30)
+upBtn.Position = UDim2.new(0,10,0,145)
+upBtn.Text = "UP"
+
+-- DOWN
+local downBtn = Instance.new("TextButton",frame)
+downBtn.Size = UDim2.new(0.45,-10,0,30)
+downBtn.Position = UDim2.new(0.55,0,0,145)
+downBtn.Text = "DOWN"
+
+-- START CAMERA
+startBtn.MouseButton1Click:Connect(function()
+
+	if camPart then camPart:Destroy() end
+
+	camPart = Instance.new("Part")
+	camPart.Size = Vector3.new(1,1,1)
+	camPart.Transparency = 1
+	camPart.Anchored = true
+	camPart.Position = char.HumanoidRootPart.Position + Vector3.new(0,10,0)
+	camPart.Parent = workspace
+
+	camera.CameraSubject = camPart
+	control = true
+	humanoid.WalkSpeed = 0
+
+end)
+
+-- EXIT CAMERA
+exitBtn.MouseButton1Click:Connect(function()
+
+	control = false
+
+	if camPart then
+		camPart:Destroy()
+	end
+
+	camera.CameraSubject = humanoid
+	humanoid.WalkSpeed = 16
+
+end)
+
+-- SPEED
+speedUp.MouseButton1Click:Connect(function()
+	speed = speed + 1
+end)
+
+speedDown.MouseButton1Click:Connect(function()
+	if speed > 1 then
+		speed = speed - 1
+	end
+end)
+
+-- UP / DOWN
+upBtn.MouseButton1Down:Connect(function()
+	up = true
+end)
+
+upBtn.MouseButton1Up:Connect(function()
+	up = false
+end)
+
+downBtn.MouseButton1Down:Connect(function()
+	down = true
+end)
+
+downBtn.MouseButton1Up:Connect(function()
+	down = false
+end)
+
+-- MOVEMENT
+RunService.RenderStepped:Connect(function()
+
+	if control and camPart then
+
+		local dir = humanoid.MoveDirection
+		camPart.Position = camPart.Position + (dir * speed)
+
+		if up then
+			camPart.Position = camPart.Position + Vector3.new(0,speed,0)
+		end
+
+		if down then
+			camPart.Position = camPart.Position - Vector3.new(0,speed,0)
+		end
+
+	end
+
+end)
+
+-- efek gelembung hacker
+spawn(function()
+
+	while true do
+		wait(0.25)
+
+		local orb = Instance.new("Frame",frame)
+		orb.Size = UDim2.new(0,8,0,8)
+		orb.Position = UDim2.new(math.random(),0,math.random(),0)
+		orb.BackgroundColor3 = Color3.fromRGB(0,255,0)
+
+		local oc = Instance.new("UICorner",orb)
+		oc.CornerRadius = UDim.new(1,0)
+
+		local lightning = Instance.new("Frame",orb)
+		lightning.Size = UDim2.new(0,2,1,0)
+		lightning.BackgroundColor3 = Color3.fromRGB(255,255,0)
+		lightning.Position = UDim2.new(0.5,-1,0,0)
+
+		spawn(function()
+			while orb.Parent do
+				orb.Position = orb.Position - UDim2.new(0,0,0.01,0)
+				wait()
+			end
+		end)
+
+		Debris:AddItem(orb,1)
+
+	end
+
+end)
+end)
+
+local e5=Instance.new("TextButton")
+e5.Size=UDim2.new(1,0,0,30); e5.BackgroundColor3=Color3.fromRGB(235,195,35); e5.Text="Adaptation (FUll SYSTEM) BY 007n7_txt"
+e5.TextColor3=Color3.new(1,1,1); e5.Font=Enum.Font.GothamBold; e5.TextSize=12; e5.BorderSizePixel=0; e5.Parent=Content
+Instance.new("UICorner",e5).CornerRadius=UDim.new(0,6)
+e5.MouseButton1Click:Connect(function()
+  -- 007n7_txt | ADAPTATION (FULL SYSTEM)
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local savedPosition = nil
+local frozen = false
+
+local function getChar()
+	return player.Character or player.CharacterAdded:Wait()
+end
+
+-- ================= GUI =================
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "007n7_ADAPTATION"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0,140,0,110)
+frame.Position = UDim2.new(0.4,0,0.5,0)
+frame.BackgroundColor3 = Color3.fromRGB(150,0,0)
+frame.Active = true
+frame.Draggable = true
+
+-- TITLE
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1,0,0,20)
+title.Text = "007n7_txt | ADAPTATION"
+title.BackgroundColor3 = Color3.fromRGB(120,0,0)
+title.TextColor3 = Color3.new(1,1,1)
+title.TextScaled = true
+
+-- ================= BUTTON =================
+
+-- ADAPT (RETURN)
+local adaptBtn = Instance.new("TextButton", frame)
+adaptBtn.Size = UDim2.new(1,-10,0,25)
+adaptBtn.Position = UDim2.new(0,5,0,25)
+adaptBtn.Text = "ADAPT"
+adaptBtn.BackgroundColor3 = Color3.fromRGB(0,170,0)
+adaptBtn.TextColor3 = Color3.new(1,1,1)
+
+-- FREEZE
+local freezeBtn = Instance.new("TextButton", frame)
+freezeBtn.Size = UDim2.new(1,-10,0,25)
+freezeBtn.Position = UDim2.new(0,5,0,55)
+freezeBtn.Text = "FREEZE: OFF"
+freezeBtn.BackgroundColor3 = Color3.fromRGB(170,0,0)
+freezeBtn.TextColor3 = Color3.new(1,1,1)
+
+-- RESET (SET POS)
+local resetBtn = Instance.new("TextButton", frame)
+resetBtn.Size = UDim2.new(1,-10,0,25)
+resetBtn.Position = UDim2.new(0,5,0,85)
+resetBtn.Text = "SET POS"
+resetBtn.BackgroundColor3 = Color3.fromRGB(200,0,0)
+resetBtn.TextColor3 = Color3.new(1,1,1)
+
+-- ================= LOGIC =================
+
+-- ADAPT (RETURN ONLY)
+adaptBtn.MouseButton1Click:Connect(function()
+
+	local char = getChar()
+	local root = char:FindFirstChild("HumanoidRootPart")
+	if not root then return end
+
+	if savedPosition then
+		root.CFrame = savedPosition
+	else
+		adaptBtn.Text = "NO POS"
+		task.wait(1)
+		adaptBtn.Text = "ADAPT"
+	end
+
+end)
+
+-- RESET = SIMPAN POSISI BARU
+resetBtn.MouseButton1Click:Connect(function()
+
+	local char = getChar()
+	local root = char:FindFirstChild("HumanoidRootPart")
+	if not root then return end
+
+	savedPosition = root.CFrame
+	resetBtn.Text = "SET!"
+	task.wait(1)
+	resetBtn.Text = "SET POS"
+
+end)
+
+-- FREEZE
+freezeBtn.MouseButton1Click:Connect(function()
+
+	local char = getChar()
+	local hum = char:FindFirstChild("Humanoid")
+	local root = char:FindFirstChild("HumanoidRootPart")
+	if not hum or not root then return end
+
+	frozen = not frozen
+
+	if frozen then
+		hum.Sit = false
+		hum:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+
+		root.Anchored = true
+		root.AssemblyLinearVelocity = Vector3.new(0,0,0)
+		root.AssemblyAngularVelocity = Vector3.new(0,0,0)
+
+		freezeBtn.Text = "FREEZE: ON"
+	else
+		root.Anchored = false
+		hum:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+
+		freezeBtn.Text = "FREEZE: OFF"
+	end
+
+end)
+
+-- ================= RESPAWN SYSTEM =================
+
+player.CharacterAdded:Connect(function()
+
+	task.wait(1)
+
+	local char = player.Character
+	local root = char:WaitForChild("HumanoidRootPart")
+
+	-- balik ke posisi terakhir kalau ada
+	if savedPosition then
+		root.CFrame = savedPosition
+	end
+
+	-- kalau freeze aktif, aktifkan lagi
+	if frozen then
+		local hum = char:WaitForChild("Humanoid")
+
+		hum.Sit = false
+		hum:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+
+		root.Anchored = true
+	end
+
+end)
+end)
+
+local e6=Instance.new("TextButton")
+e6.Size=UDim2.new(1,0,0,30); e6.BackgroundColor3=Color3.fromRGB(235,195,35); e6.Text="Banned player by 007n7_txt"
+e6.TextColor3=Color3.new(1,1,1); e6.Font=Enum.Font.GothamBold; e6.TextSize=12; e6.BorderSizePixel=0; e6.Parent=Content
+Instance.new("UICorner",e6).CornerRadius=UDim.new(0,6)
+e6.MouseButton1Click:Connect(function()
+  -- 007N7_TXT | BANNED | PLAYER (MOBILE SMALL)
+-- TEST MAP ONLY
+
+local player = game.Players.LocalPlayer
+local PlayerGui = player:WaitForChild("PlayerGui")
+
+-- Hapus GUI lama
+for _, v in ipairs(PlayerGui:GetChildren()) do
+	if v.Name == "BannedPlayerGUI" then
+		v:Destroy()
+	end
+end
+
+-- ScreenGui
+local gui = Instance.new("ScreenGui")
+gui.Name = "BannedPlayerGUI"
+gui.ResetOnSpawn = false
+gui.Parent = PlayerGui
+
+-- ======================
+-- MAIN FRAME (LEBAR 260)
+-- ======================
+local WIDTH = 260
+
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0, WIDTH, 0, 220)
+main.Position = UDim2.new(0.5, -WIDTH/2, 0.18, 0)
+main.BackgroundColor3 = Color3.fromRGB(85, 0, 0)
+main.BorderSizePixel = 0
+main.Active = true
+
+-- TITLE BAR
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, -36, 0, 36)
+title.BackgroundColor3 = Color3.fromRGB(130, 0, 0)
+title.Text = "007N7_TXT | BANNED | PLAYER"
+title.TextColor3 = Color3.new(1,1,1)
+title.Font = Enum.Font.GothamBold
+title.TextScaled = true
+title.BorderSizePixel = 0
+
+-- TOGGLE BUTTON
+local toggle = Instance.new("TextButton", main)
+toggle.Size = UDim2.new(0, 36, 0, 36)
+toggle.Position = UDim2.new(1, -36, 0, 0)
+toggle.Text = "-"
+toggle.Font = Enum.Font.GothamBold
+toggle.TextScaled = true
+toggle.BackgroundColor3 = Color3.fromRGB(130, 0, 0)
+toggle.TextColor3 = Color3.new(1,1,1)
+toggle.BorderSizePixel = 0
+
+-- SCROLL
+local scroll = Instance.new("ScrollingFrame", main)
+scroll.Position = UDim2.new(0, 0, 0, 40)
+scroll.Size = UDim2.new(1, 0, 1, -40)
+scroll.CanvasSize = UDim2.new(0,0,0,0)
+scroll.ScrollBarThickness = 4
+scroll.BackgroundTransparency = 1
+
+local layout = Instance.new("UIListLayout", scroll)
+layout.Padding = UDim.new(0, 8)
+
+-- TOGGLE LOGIC
+local opened = true
+local fullSize = main.Size
+
+toggle.MouseButton1Click:Connect(function()
+	opened = not opened
+	if opened then
+		scroll.Visible = true
+		main.Size = fullSize
+		toggle.Text = "-"
+	else
+		scroll.Visible = false
+		main.Size = UDim2.new(0, WIDTH, 0, 36)
+		toggle.Text = "+"
+	end
+end)
+
+-- DRAG (MOBILE + PC)
+local dragging, dragStart, startPos
+title.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.Touch
+	or input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = input.Position
+		startPos = main.Position
+	end
+end)
+
+title.InputEnded:Connect(function()
+	dragging = false
+end)
+
+title.InputChanged:Connect(function(input)
+	if dragging and (
+		input.UserInputType == Enum.UserInputType.Touch
+		or input.UserInputType == Enum.UserInputType.MouseMovement
+	) then
+		local delta = input.Position - dragStart
+		main.Position = UDim2.new(
+			startPos.X.Scale,
+			startPos.X.Offset + delta.X,
+			startPos.Y.Scale,
+			startPos.Y.Offset + delta.Y
+		)
+	end
+end)
+
+-- REPORT TEXT
+local reports = {
+	"They keep asking other players for inappropriate or personal interactions.",
+	"Sexual behavior in chat is not appropriate and violates community rules.",
+	"This player is suspected of using exploits or unfair advantages.",
+	"They are hacking or breaking the rules and ruining fair gameplay.",
+	"This player shows toxic behavior by insulting or harassing others.",
+	"Suspicious actions indicate abuse of game systems."
+}
+
+-- CREATE REPORT
+local function createReport(text)
+	local box = Instance.new("Frame", scroll)
+	box.Size = UDim2.new(1, -6, 0, 60)
+	box.BackgroundColor3 = Color3.fromRGB(120, 0, 0)
+	box.BorderSizePixel = 0
+
+	local label = Instance.new("TextLabel", box)
+	label.Size = UDim2.new(1, -75, 1, -8)
+	label.Position = UDim2.new(0, 6, 0, 4)
+	label.BackgroundTransparency = 1
+	label.TextWrapped = true
+	label.TextXAlignment = Enum.TextXAlignment.Left
+	label.TextYAlignment = Enum.TextYAlignment.Center
+	label.TextColor3 = Color3.new(1,1,1)
+	label.Font = Enum.Font.Gotham
+	label.TextScaled = true
+	label.Text = text
+
+	local copy = Instance.new("TextButton", box)
+	copy.Size = UDim2.new(0, 65, 0, 30)
+	copy.Position = UDim2.new(1, -70, 0.5, -15)
+	copy.Text = "COPY"
+	copy.Font = Enum.Font.GothamBold
+	copy.TextScaled = true
+	copy.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+	copy.TextColor3 = Color3.new(1,1,1)
+	copy.BorderSizePixel = 0
+
+	copy.MouseButton1Click:Connect(function()
+		if setclipboard then
+			setclipboard(text)
+		end
+	end)
+end
+
+for _, r in ipairs(reports) do
+	createReport(r)
+end
+
+task.wait()
+scroll.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y + 10)
+end)
+
+local e7=Instance.new("TextButton")
+e7.Size=UDim2.new(1,0,0,30); e7.BackgroundColor3=Color3.fromRGB(235,195,35); e7.Text="Report LC GUI"
+e7.TextColor3=Color3.new(1,1,1); e7.Font=Enum.Font.GothamBold; e7.TextSize=12; e7.BorderSizePixel=0; e7.Parent=Content
+Instance.new("UICorner",e7).CornerRadius=UDim.new(0,6)
+e7.MouseButton1Click:Connect(function()
+  --// Report LC GUI (Draggable + Clipboard + Expand)
+--// Works on most executors (Delta, Hydrogen, Fluxus, etc.)
+
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+
+local plr = Players.LocalPlayer
+
+-- GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ReportLcZXRYON"
+ScreenGui.Parent = gethui and gethui() or game.CoreGui
+
+-- MAIN BAR (BLUE)
+local Main = Instance.new("Frame")
+Main.Size = UDim2.new(0, 420, 0, 80)
+Main.Position = UDim2.new(0.5, -210, 0.3, 0)
+Main.BackgroundColor3 = Color3.fromRGB(20, 30, 200)
+Main.BorderSizePixel = 0
+Main.Active = true
+Main.Draggable = true
+Main.Parent = ScreenGui
+
+local UICornerMain = Instance.new("UICorner")
+UICornerMain.CornerRadius = UDim.new(0, 12)
+UICornerMain.Parent = Main
+
+-- TITLE
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(0.6, 0, 1, 0)
+Title.Position = UDim2.new(0.02, 0, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "ReportLc|ZXRYON"
+Title.TextScaled = true
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.Font = Enum.Font.GothamBold
+Title.Parent = Main
+
+-- CLOSE BUTTON (X)
+local Close = Instance.new("TextButton")
+Close.Size = UDim2.new(0, 90, 0, 60)
+Close.Position = UDim2.new(0.6, 10, 0.1, 0)
+Close.Text = "X"
+Close.TextScaled = true
+Close.Font = Enum.Font.GothamBlack
+Close.TextColor3 = Color3.new(1,1,1)
+Close.BackgroundColor3 = Color3.fromRGB(255, 40, 40)
+Close.Parent = Main
+
+local UICornerX = Instance.new("UICorner")
+UICornerX.CornerRadius = UDim.new(0, 10)
+UICornerX.Parent = Close
+
+-- PLUS BUTTON
+local Plus = Instance.new("TextButton")
+Plus.Size = UDim2.new(0, 90, 0, 60)
+Plus.Position = UDim2.new(0.8, 10, 0.1, 0)
+Plus.Text = "+"
+Plus.TextScaled = true
+Plus.Font = Enum.Font.GothamBlack
+Plus.TextColor3 = Color3.new(1,1,1)
+Plus.BackgroundColor3 = Color3.fromRGB(30, 80, 140)
+Plus.Parent = Main
+
+local UICornerPlus = Instance.new("UICorner")
+UICornerPlus.CornerRadius = UDim.new(0, 10)
+UICornerPlus.Parent = Plus
+
+-- EXPAND FRAME (LONG BOX)
+local Expand = Instance.new("Frame")
+Expand.Size = UDim2.new(0, 420, 0, 320)
+Expand.Position = UDim2.new(0, 0, 1, 5)
+Expand.BackgroundColor3 = Color3.fromRGB(60, 90, 200)
+Expand.Visible = false
+Expand.Parent = Main
+
+local UICornerExpand = Instance.new("UICorner")
+UICornerExpand.CornerRadius = UDim.new(0, 12)
+UICornerExpand.Parent = Expand
+
+-- FUNCTION CREATE COPY BUTTON
+local function createCopyButton(text, posY)
+	local Btn = Instance.new("TextButton")
+	Btn.Size = UDim2.new(0.9, 0, 0, 60)
+	Btn.Position = UDim2.new(0.05, 0, 0, posY)
+	Btn.BackgroundColor3 = Color3.fromRGB(255, 40, 40)
+	Btn.TextColor3 = Color3.new(1,1,1)
+	Btn.TextScaled = true
+	Btn.Font = Enum.Font.GothamBold
+	Btn.Text = text
+	Btn.Parent = Expand
+	
+	local Corner = Instance.new("UICorner")
+	Corner.CornerRadius = UDim.new(0, 8)
+	Corner.Parent = Btn
+	
+	Btn.MouseButton1Click:Connect(function()
+		if setclipboard then
+			setclipboard(text)
+		end
+	end)
+end
+
+-- TEXTS
+createCopyButton(
+"I would like to report a player who is using an inappropriate avatar that appears to be sexualized and not suitable for the Roblox community. The avatar is designed in a way that emphasizes exaggerated body proportions and inappropriate clothing style that could be considered suggestive or “tobrut/LC style.”",
+10
+)
+
+createCopyButton(
+"Roblox is a platform with many young players, including children. Avatars that are overly revealing, exaggerated, or designed to attract sexual attention create an uncomfortable and unsafe environment. This kind of content goes against Roblox Community Standards, especially regarding sexual content and inappropriate material.",
+80
+)
+
+createCopyButton(
+"The avatar includes unrealistic body proportions and clothing that appears intentionally revealing. Even if it uses layered clothing or accessories to bypass filters, the overall appearance still promotes inappropriate themes.",
+150
+)
+
+createCopyButton(
+"I believe this avatar violates Roblox’s rules about sexual content, nudity simulation, and inappropriate behavior. Please review this account and take appropriate action to maintain a safe and friendly environment for all players.",
+220
+)
+
+-- BUTTON FUNCTIONS
+Plus.MouseButton1Click:Connect(function()
+	Expand.Visible = not Expand.Visible
+end)
+
+Close.MouseButton1Click:Connect(function()
+	ScreenGui:Destroy()
+end)
+end)
+
+local e8=Instance.new("TextButton")
+e8.Size=UDim2.new(1,0,0,30); e8.BackgroundColor3=Color3.fromRGB(235,195,35); e8.Text="ADAPTATION AUTO ANTI FLING by 007n7_txt"
+e8.TextColor3=Color3.new(1,1,1); e8.Font=Enum.Font.GothamBold; e8.TextSize=12; e8.BorderSizePixel=0; e8.Parent=Content
+Instance.new("UICorner",e8).CornerRadius=UDim.new(0,6)
+e8.MouseButton1Click:Connect(function()
+  -- 007n7_txt | ADAPTATION | beta auto
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+
+local savedPosition = nil
+local frozen = false
+local autoAdapt = false
+local triggered = false
+
+local function getChar()
+	return player.Character or player.CharacterAdded:Wait()
+end
+
+-- ================= GUI =================
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "007n7_txt | ADAPTATION | beta auto"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0,150,0,140)
+frame.Position = UDim2.new(0.4,0,0.5,0)
+frame.BackgroundColor3 = Color3.fromRGB(150,0,0)
+frame.Active = true
+frame.Draggable = true
+
+-- TITLE
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1,0,0,20)
+title.Text = "007n7_txt | ADAPTATION | beta auto"
+title.BackgroundColor3 = Color3.fromRGB(120,0,0)
+title.TextColor3 = Color3.new(1,1,1)
+title.TextScaled = true
+
+-- ================= BUTTON =================
+
+-- ADAPT
+local adaptBtn = Instance.new("TextButton", frame)
+adaptBtn.Size = UDim2.new(1,-10,0,25)
+adaptBtn.Position = UDim2.new(0,5,0,25)
+adaptBtn.Text = "ADAPT"
+adaptBtn.BackgroundColor3 = Color3.fromRGB(0,170,0)
+adaptBtn.TextColor3 = Color3.new(1,1,1)
+
+-- FREEZE
+local freezeBtn = Instance.new("TextButton", frame)
+freezeBtn.Size = UDim2.new(1,-10,0,25)
+freezeBtn.Position = UDim2.new(0,5,0,55)
+freezeBtn.Text = "FREEZE: OFF"
+freezeBtn.BackgroundColor3 = Color3.fromRGB(170,0,0)
+freezeBtn.TextColor3 = Color3.new(1,1,1)
+
+-- SET POS
+local resetBtn = Instance.new("TextButton", frame)
+resetBtn.Size = UDim2.new(1,-10,0,25)
+resetBtn.Position = UDim2.new(0,5,0,85)
+resetBtn.Text = "SET POS"
+resetBtn.BackgroundColor3 = Color3.fromRGB(200,0,0)
+resetBtn.TextColor3 = Color3.new(1,1,1)
+
+-- AUTO ADAPT
+local autoBtn = Instance.new("TextButton", frame)
+autoBtn.Size = UDim2.new(1,-10,0,25)
+autoBtn.Position = UDim2.new(0,5,0,115)
+autoBtn.Text = "AUTO: OFF"
+autoBtn.BackgroundColor3 = Color3.fromRGB(0,100,200)
+autoBtn.TextColor3 = Color3.new(1,1,1)
+
+-- ================= LOGIC =================
+
+-- ADAPT
+adaptBtn.MouseButton1Click:Connect(function()
+	local char = getChar()
+	local root = char:FindFirstChild("HumanoidRootPart")
+	if root and savedPosition then
+		root.CFrame = savedPosition
+	end
+end)
+
+-- SET POS
+resetBtn.MouseButton1Click:Connect(function()
+	local char = getChar()
+	local root = char:FindFirstChild("HumanoidRootPart")
+	if root then
+		savedPosition = root.CFrame
+		resetBtn.Text = "SET!"
+		task.wait(1)
+		resetBtn.Text = "SET POS"
+	end
+end)
+
+-- FREEZE
+freezeBtn.MouseButton1Click:Connect(function()
+	local char = getChar()
+	local hum = char:FindFirstChild("Humanoid")
+	local root = char:FindFirstChild("HumanoidRootPart")
+
+	if not hum or not root then return end
+
+	frozen = not frozen
+
+	if frozen then
+		hum.Sit = false
+		hum:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+
+		root.Anchored = true
+		root.AssemblyLinearVelocity = Vector3.new(0,0,0)
+		root.AssemblyAngularVelocity = Vector3.new(0,0,0)
+
+		freezeBtn.Text = "FREEZE: ON"
+	else
+		root.Anchored = false
+		hum:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+
+		freezeBtn.Text = "FREEZE: OFF"
+	end
+end)
+
+-- AUTO TOGGLE
+autoBtn.MouseButton1Click:Connect(function()
+	autoAdapt = not autoAdapt
+	autoBtn.Text = autoAdapt and "AUTO: ON" or "AUTO: OFF"
+end)
+
+-- ================= AUTO SYSTEM =================
+
+RunService.RenderStepped:Connect(function()
+
+	if not autoAdapt or triggered then return end
+
+	local char = player.Character
+	if not char then return end
+
+	local root = char:FindFirstChild("HumanoidRootPart")
+	if not root or not savedPosition then return end
+
+	local heightUp = root.Position.Y - savedPosition.Position.Y
+	local heightDown = savedPosition.Position.Y - root.Position.Y
+	local velocityY = root.AssemblyLinearVelocity.Y
+
+	-- DETEKSI
+	if (heightDown > 25 and velocityY < -50) or (heightUp > 30 and velocityY > 60) then
+		
+		triggered = true
+
+		-- FREEZE SPAM
+		for i = 1,4 do
+			root.Anchored = true
+			root.AssemblyLinearVelocity = Vector3.new(0,0,0)
+			task.wait(0.05)
+		end
+
+		-- ADAPT
+		root.CFrame = savedPosition
+
+		task.wait(0.2)
+
+		if not frozen then
+			root.Anchored = false
+		end
+
+		task.wait(1)
+		triggered = false
+	end
+
+end)
+
+-- ================= RESPAWN =================
+
+player.CharacterAdded:Connect(function()
+
+	task.wait(1)
+
+	local char = player.Character
+	local root = char:WaitForChild("HumanoidRootPart")
+
+	if savedPosition then
+		root.CFrame = savedPosition
+	end
+
+	if frozen then
+		local hum = char:WaitForChild("Humanoid")
+		hum.Sit = false
+		hum:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+		root.Anchored = true
+	end
+
+end)
+end)
